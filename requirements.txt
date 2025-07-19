@@ -1,0 +1,18 @@
+import streamlit as st
+from transformers import pipeline
+
+chatbot = pipeline("text-generation", model="distilgpt2")
+
+st.title("💬 UjjawalGPT – Tumhara Apna Desi AI Dost 🇮🇳")
+st.caption("Desi style me chatbot – Hinglish me puchho, reply milega!")
+
+user_input = st.text_input("Bhai kuch bhi puchho:")
+
+if user_input:
+    if "naam" in user_input:
+        st.write("Mera naam UjjawalGPT hai 😎")
+    elif "kisne banaya" in user_input:
+        st.write("Ujjawal Mishra ne banaya mujhe – Desi Chatbot! 💥")
+    else:
+        output = chatbot(user_input, max_length=60, do_sample=True, top_k=40, top_p=0.9)[0]['generated_text']
+        st.write(output[len(user_input):]
